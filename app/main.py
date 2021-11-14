@@ -31,7 +31,7 @@ def read_root(input:code_input):
     x = collection.find({"name" : {"$regex" : input.name.upper()}},{'_id': False} )
     x= list(x)
     x= x[:10]
-    return {"bselists" : x}
+    return {"data" : x}
 
 
 @app.post("/data")
@@ -40,8 +40,15 @@ def read_root(input:stock_data):
     to_date = input.to_date
     from_date = input.from_date
     data = getdata.api_request(code,from_date,to_date)
-    return  data
-
+    if data["response"] == "working":
+        newList = []
+        normaliseor = data["pricedata"][0]["price"]
+        for x in data["pricedata"]:
+            newList.append({"date" : x["date"], "type" : x["type"], "price" :float(x["price"])*100/float(normaliseor)})
+    else:
+        return "nodata"
+    data["pricedata"] = newList
+    return data
 
 
     
