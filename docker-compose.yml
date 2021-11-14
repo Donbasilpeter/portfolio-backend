@@ -1,13 +1,13 @@
 services:
-  db:
+  database:
     image: mongo
     ports:
       - "8002:27017"
-
+      
   web:
     build:
       dockerfile: Dockerfile
-      context: ./app
+      context: .
     volumes:
       - .:/code
     entrypoint:
