@@ -56,13 +56,13 @@ def read_root(input:stock_data):
     to_date = input.to_date
     from_date = input.from_date
     data = getdata.api_request(code,from_date,to_date)
-    if data["response"] == "working":
+    if data["response"] == "TRUE":
         newList = []
         normaliseor = data["pricedata"][0]["price"]
         for x in data["pricedata"]:
             newList.append({"date" : x["date"], "type" : x["type"], "price" :float(x["price"])*100/float(normaliseor)})
     else:
-        return "nodata"
+        return {"response" : "FALSE"} 
     data["pricedata"] = newList
     return data
 

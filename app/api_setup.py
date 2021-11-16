@@ -20,21 +20,24 @@ class getdata:
         data =json.loads(responsedata)
         price_data = []
         index = 0
-        for sensex_data in sensexdata:
-            if data:
-                sensex_date =datetime.datetime.strptime(sensex_data['date'][0:15], '%a %b %d %Y').strftime('%Y-%m-%d')
-                stock_date =datetime.datetime.strptime(data[index]['dttm'][0:15], '%a %b %d %Y').strftime('%Y-%m-%d')
-                if sensex_date == stock_date:
-                    price_data.append({"date": sensex_date, "price" :  data[index]["vale1"] ,"type":True})
-                    index =index+1
-                else:
-                    if index ==0:
-                        price_data.append({"date": sensex_date, "price" :  data[index+1]["vale1"] ,"type":False})
+        if sensexdata:
+            for sensex_data in sensexdata:
+                if data:
+                    sensex_date =datetime.datetime.strptime(sensex_data['date'][0:15], '%a %b %d %Y').strftime('%Y-%m-%d')
+                    stock_date =datetime.datetime.strptime(data[index]['dttm'][0:15], '%a %b %d %Y').strftime('%Y-%m-%d')
+                    if sensex_date == stock_date:
+                        price_data.append({"date": sensex_date, "price" :  data[index]["vale1"] ,"type":True})
+                        index =index+1
                     else:
-                        price_data.append({"date": sensex_date, "price" :  data[index-1]["vale1"] ,"type":False})
-             
-            else:
-                return {"response":"empty"}
-        price = {"script_code" : code, "name" : name, "pricedata" :price_data,"response":"working"}
-        return price
+                        if index ==0:
+                            price_data.append({"date": sensex_date, "price" :  data[index+1]["vale1"] ,"type":False})
+                        else:
+                            price_data.append({"date": sensex_date, "price" :  data[index-1]["vale1"] ,"type":False})
+                
+                else:
+                    return {"response":"FALSE"}
+            price = {"script_code" : code, "name" : name, "pricedata" :price_data,"response":"TRUE"}
+            return price
+        else:
+            return {"response":"FALSE"}
                 
