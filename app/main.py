@@ -6,7 +6,7 @@ from pydantic import BaseModel
 from fastapi.middleware.cors import CORSMiddleware
 
 #setup the bsecodes
-#from .set_bsecode import * 
+from .set_bsecode import * 
 from .api_setup import getdata
 
 app = FastAPI()
