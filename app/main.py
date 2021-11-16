@@ -3,12 +3,28 @@ from fastapi import FastAPI
 import pymongo
 from pymongo import MongoClient
 from pydantic import BaseModel
+from fastapi.middleware.cors import CORSMiddleware
 
 #setup the bsecodes
 #from .set_bsecode import * 
 from .api_setup import getdata
 
 app = FastAPI()
+
+origins = [
+
+    "*",
+]
+
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
 
 client = MongoClient("database",27017)
 db = client.portfolio_app
@@ -49,11 +65,5 @@ def read_root(input:stock_data):
         return "nodata"
     data["pricedata"] = newList
     return data
-
-
-    
-
-
-
 
 
