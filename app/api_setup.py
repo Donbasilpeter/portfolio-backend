@@ -18,7 +18,6 @@ class getdata:
        
         name = responsedata["Scripname"]
         responsedata = responsedata["Data"]
-        print(responsedata)
         data =json.loads(responsedata)
         price_data = []
         index = 0
@@ -27,7 +26,6 @@ class getdata:
                 if data:
                     sensex_date =datetime.datetime.strptime(sensex_data['date'][0:15], '%a %b %d %Y').strftime('%Y-%m-%d')
                     stock_date =datetime.datetime.strptime(data[index]['dttm'][0:15], '%a %b %d %Y').strftime('%Y-%m-%d')
-                    print(data)
 
                     if sensex_date == stock_date:
                         if(index+1 < len(data)):
