@@ -43,9 +43,9 @@ class getdata:
                             price_data.append({"date": sensex_date, "price" :  data[index-1]["vale1"] ,"type":False})
                 
                 else:
-                    return {"response":"FALSE"}
+                    return {"script_code" : code,"response":"FALSE"}
             price = {"script_code" : code, "name" : name, "pricedata" :price_data,"response":"TRUE"}
             return price
         else:
-            return {"response":"FALSE"}
+            return {"script_code" : code,"response":"FALSE"}
                 

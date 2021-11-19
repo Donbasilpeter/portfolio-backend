@@ -62,7 +62,7 @@ def read_root(input:stock_data):
         for x in data["pricedata"]:
             newList.append({"date" : x["date"], "type" : x["type"], "price" :float(x["price"])*100/float(normaliseor)})
     else:
-        return {"response" : "FALSE"} 
+        return data
     data["pricedata"] = newList
     return data
 
